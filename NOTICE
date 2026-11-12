@@ -1,0 +1,12 @@
+Copyright 2026 Exowatt, Inc.
+
+This project dynamically uses psycopg and psycopg-binary (LGPL-3.0-only).
+The packages are separately installed from PyPI; their license and source are
+available at https://www.psycopg.org/ and in their distributions.
+
+The frontend uses Inter via @fontsource-variable/inter, distributed under
+SIL Open Font License 1.1. Its OFL text is in the npm package distribution.
+No JetBrains Mono font files or Exowatt brand assets are included.
+
+Optional TypeSafe Jev and OpenAI integrations make HTTP requests to their
+providers; no third-party proprietary SDK or model weights are bundled.

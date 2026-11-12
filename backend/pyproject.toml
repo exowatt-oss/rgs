@@ -1,0 +1,35 @@
+[project]
+name = "rgs"
+version = "0.1.0"
+description = "Live, self-hosted call companion with pluggable transcription and question gate"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+dependencies = [
+    "fastapi>=0.139.0", "uvicorn[standard]>=0.50.2",
+    "pydantic-settings>=2.14.2", "python-dotenv>=1.2.2",
+    "sqlalchemy>=2.0.51", "psycopg[binary]>=3.3.4", "alembic>=1.18.5",
+    "structlog>=26.1.0", "httpx>=0.28.1", "anyio>=4",
+    "numpy>=2.0,<3", "jellyfish>=1.3.0", "mcp>=1.10,<2",
+    "forwarded-auth[fastapi,mcp] @ git+https://github.com/exowatt-oss/forwarded-auth@58fd85f8ee6624c430aa23c3947d62f8840e5a52",
+]
+[project.optional-dependencies]
+aws = ["boto3>=1.34,<2"]  # Opt-in SageMaker transport, not needed for HTTP/mock.
+
+[dependency-groups]
+dev = ["pytest>=9.1.1", "pytest-asyncio>=1.4.0", "ruff>=0.15.20", "boto3>=1.34,<2"]
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+[tool.hatch.metadata]
+allow-direct-references = true
+[tool.hatch.build.targets.wheel]
+packages = ["src/app"]

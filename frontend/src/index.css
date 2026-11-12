@@ -1,0 +1,460 @@
+/* Neutral standalone palette. No proprietary brand styles or binary fonts. */
+@import 'tailwindcss';
+
+/* Dark mode follows `data-theme` on <html> (set before paint by index.html,
+ * driven by lib/theme.tsx). */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+
+/* ----------------------------------------------------------------------------
+ * Semantic tokens (devboxes / cicd console). Raw colour values live here and
+ * nowhere else.
+ *
+ * Neutral surfaces dominate; blue is the agent accent. Status hues are
+ * reserved for state and always pair with an icon + label: `*-mark` for glyphs
+ * and bars, `*-ink` for text, `*-soft` for tinted chips.
+ * ------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+  --canvas: #f4f4f5;
+  --panel: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f8f8f9;
+  --hover: rgb(0 0 0 / 0.035);
+  --selected: rgb(0 0 0 / 0.06);
+
+  --fg: #16171b;
+  --fg-2: #3a3d44;
+  --muted: #62656c;
+  --subtle: #8c8f96;
+
+  --border: rgb(0 0 0 / 0.085);
+  --border-strong: rgb(0 0 0 / 0.15);
+  --row: rgb(0 0 0 / 0.055);
+
+  --brand: #3159aa;
+  --brand-text: #234385;
+  --brand-soft: rgb(49 89 170 / 0.1);
+  --brand-line: rgb(49 89 170 / 0.32);
+  --ring: rgb(49 89 170 / 0.45);
+
+  --ok: #17935a;
+  --ok-ink: #036f52;
+  --ok-soft: rgb(16 185 129 / 0.12);
+  --fail: #dc2626;
+  --fail-ink: #c01c1c;
+  --fail-soft: rgb(220 38 38 / 0.09);
+  --run: #0b8db0;
+  --run-ink: #0a6a84;
+  --run-soft: rgb(6 182 212 / 0.12);
+  --warn: #d97706;
+  --warn-ink: #92460a;
+  --warn-soft: rgb(245 158 11 / 0.14);
+  --idle: #8c8f96;
+
+  --bar: #5b5f68;
+  --bar-strong: #2b2e35;
+  --track: rgb(0 0 0 / 0.05);
+  --track-strong: rgb(0 0 0 / 0.12);
+  --grid: rgb(0 0 0 / 0.045);
+
+  /* Speaker identity (categorical). Slots 1–4 are the dataviz reference
+   * hues re-stepped in lightness so any two of the first four stay apart
+   * for full-colour and protan/deutan readers (OKLab ΔE ≥ 15.9 / ≥ 11.7,
+   * all pairs) and away from the agent accent. The accent is never
+   * a speaker colour. Identity never rides on colour alone: every turn also
+   * carries the name, initials and a fixed lane. `-ink` is the initials
+   * colour on a filled avatar. */
+  --series-1: #0053a7;
+  --series-2: #118d61;
+  --series-3: #8e2956;
+  --series-4: #736adc;
+  --series-5: #008300;
+  --series-6: #a66f00;
+  --series-7: #e34948;
+  --series-8: #6b6e76;
+  --series-1-ink: #fff;
+  --series-2-ink: #fff;
+  --series-3-ink: #fff;
+  --series-4-ink: #fff;
+  --series-5-ink: #fff;
+  --series-6-ink: #fff;
+  --series-7-ink: #fff;
+  --series-8-ink: #fff;
+  --series-other: #8c8f96;
+
+  --shadow-card: 0 1px 2px rgb(16 17 20 / 0.04);
+  --shadow-pop: 0 1px 2px rgb(16 17 20 / 0.06), 0 8px 24px -6px rgb(16 17 20 / 0.16);
+  --overlay: rgb(16 17 20 / 0.4);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --canvas: #0f1011;
+  --panel: #161718;
+  --surface: #1a1b1d;
+  --surface-2: #1d1e21;
+  --hover: rgb(255 255 255 / 0.035);
+  --selected: rgb(255 255 255 / 0.07);
+
+  --fg: #e6e8ec;
+  --fg-2: #c3c7ce;
+  --muted: #8f949c;
+  --subtle: #6f737b;
+
+  --border: #25272b;
+  --border-strong: #32353a;
+  --row: #1f2124;
+
+  --brand: #f0522a;
+  --brand-text: #ff7a55;
+  --brand-soft: rgb(240 82 42 / 0.16);
+  --brand-line: rgb(240 82 42 / 0.4);
+  --ring: rgb(240 82 42 / 0.55);
+
+  --ok: #3aa776;
+  --ok-ink: #4cc38a;
+  --ok-soft: rgb(52 211 153 / 0.12);
+  --fail: #e5484d;
+  --fail-ink: #ff6b6b;
+  --fail-soft: rgb(248 113 113 / 0.12);
+  --run: #22b3d1;
+  --run-ink: #4dd0e8;
+  --run-soft: rgb(34 211 238 / 0.12);
+  --warn: #f0a429;
+  --warn-ink: #fbbf24;
+  --warn-soft: rgb(251 191 36 / 0.12);
+  --idle: #6f737b;
+
+  --bar: #8a8f98;
+  --bar-strong: #d0d4db;
+  --track: rgb(255 255 255 / 0.05);
+  --track-strong: rgb(255 255 255 / 0.13);
+  --grid: rgb(255 255 255 / 0.04);
+
+  /* Same slots stepped for the dark surface (ΔE ≥ 16.4 / ≥ 11.1, all pairs). */
+  --series-1: #1367c3;
+  --series-2: #2eaa7b;
+  --series-3: #b83669;
+  --series-4: #8d82e6;
+  --series-5: #3fae3f;
+  --series-6: #c98500;
+  --series-7: #e66767;
+  --series-8: #80848c;
+  --series-1-ink: #fff;
+  --series-2-ink: #0b0b0b;
+  --series-3-ink: #fff;
+  --series-4-ink: #0b0b0b;
+  --series-5-ink: #0b0b0b;
+  --series-6-ink: #0b0b0b;
+  --series-7-ink: #0b0b0b;
+  --series-8-ink: #0b0b0b;
+  --series-other: #6f737b;
+
+  --shadow-card: 0 0 0 rgb(0 0 0 / 0);
+  --shadow-pop: 0 0 0 1px #2c2f34, 0 12px 32px -8px rgb(0 0 0 / 0.6);
+  --overlay: rgb(0 0 0 / 0.6);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-panel: var(--panel);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-hover: var(--hover);
+  --color-selected: var(--selected);
+
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-row: var(--row);
+
+  --color-brand: var(--brand);
+  --color-brand-text: var(--brand-text);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-line: var(--brand-line);
+
+  --color-ok: var(--ok);
+  --color-ok-ink: var(--ok-ink);
+  --color-ok-soft: var(--ok-soft);
+  --color-fail: var(--fail);
+  --color-fail-ink: var(--fail-ink);
+  --color-fail-soft: var(--fail-soft);
+  --color-run: var(--run);
+  --color-run-ink: var(--run-ink);
+  --color-run-soft: var(--run-soft);
+  --color-warn: var(--warn);
+  --color-warn-ink: var(--warn-ink);
+  --color-warn-soft: var(--warn-soft);
+  --color-idle: var(--idle);
+
+  --color-bar: var(--bar);
+  --color-bar-strong: var(--bar-strong);
+  --color-track: var(--track);
+  --color-track-strong: var(--track-strong);
+  --color-grid: var(--grid);
+
+  --color-overlay: var(--overlay);
+
+  /* Speakers: the categorical series, by speaker slot. */
+  --color-speaker-1: var(--series-1);
+  --color-speaker-1-ink: var(--series-1-ink);
+  --color-speaker-2: var(--series-2);
+  --color-speaker-2-ink: var(--series-2-ink);
+  --color-speaker-3: var(--series-3);
+  --color-speaker-3-ink: var(--series-3-ink);
+  --color-speaker-4: var(--series-4);
+  --color-speaker-4-ink: var(--series-4-ink);
+  --color-speaker-5: var(--series-5);
+  --color-speaker-5-ink: var(--series-5-ink);
+  --color-speaker-6: var(--series-6);
+  --color-speaker-6-ink: var(--series-6-ink);
+  --color-speaker-7: var(--series-7);
+  --color-speaker-7-ink: var(--series-7-ink);
+  --color-speaker-8: var(--series-8);
+  --color-speaker-8-ink: var(--series-8-ink);
+
+  /* Template (shadcn-style) primitives map onto the same tokens. */
+  --color-background: var(--panel);
+  --color-foreground: var(--fg);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--fg);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--fg);
+  --color-primary: var(--brand);
+  --color-primary-foreground: #fff;
+  --color-secondary: var(--selected);
+  --color-secondary-foreground: var(--fg);
+  --color-muted-foreground: var(--muted);
+  --color-accent: var(--hover);
+  --color-accent-foreground: var(--fg);
+  --color-destructive: var(--fail);
+  --color-input: var(--border);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  background: var(--canvas);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv11', 'ss01';
+  text-rendering: optimizeLegibility;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: normal;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--brand-soft);
+}
+
+/* Quiet scrollbars on inner scroll areas (the page keeps the platform's). */
+.scroll-quiet {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+@keyframes dvb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: dvb-spin 1.4s linear infinite;
+}
+
+@keyframes dvb-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.pop-in {
+  animation: dvb-fade-in 120ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+@keyframes dvb-drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+.drawer-in {
+  animation: dvb-drawer-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- RGS additions ------------------------------------------------------ */
+
+/* Brand gradient fill (the agent's mark). */
+.ex-bg-gradient {
+  background: var(--ex-gradient);
+  color: #fff;
+}
+
+/* Recording / live dot. */
+@keyframes rgs-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+.blink {
+  animation: rgs-blink 1.6s ease-in-out infinite;
+}
+
+/* Interim transcript caret. */
+@keyframes rgs-caret {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: rgs-caret 1s steps(1) infinite;
+}
+
+/* A transcript line the agent is looking into. */
+@keyframes rgs-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+.agent-shimmer {
+  background-image: linear-gradient(90deg, transparent 0%, var(--brand-soft) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: rgs-shimmer 2.4s linear infinite;
+}
+
+/* Agent heartbeat: one ring per gate check, expanding out of the mark. */
+@keyframes rgs-ping {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+.ping {
+  animation: rgs-ping 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Ring around the avatar of whoever holds the floor. */
+@keyframes rgs-speaking {
+  0%,
+  100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(1.08);
+  }
+}
+.speaking-ring {
+  animation: rgs-speaking 1.6s ease-in-out infinite;
+}
+
+/* Mic level drives this var (lib/useLevel.ts) without React renders. */
+.level-scale {
+  transform: scale(calc(1 + var(--level, 0) * 0.18));
+  transition: transform 90ms linear;
+}
+
+/* Flash when a linked line or card is jumped to. */
+@keyframes rgs-flash {
+  0% {
+    background-color: var(--brand-soft);
+    box-shadow: inset 2px 0 0 var(--brand);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: inset 2px 0 0 transparent;
+  }
+}
+.flash {
+  animation: rgs-flash 1.8s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin,
+  .pop-in,
+  .drawer-in,
+  .blink,
+  .caret,
+  .agent-shimmer,
+  .ping,
+  .flash,
+  .speaking-ring {
+    animation: none;
+  }
+  .level-scale {
+    transition: none;
+  }
+}
+
+/* Recap: the little front page bobs while the edition is printing. */
+@keyframes rgs-press {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .agent-shimmer,
+  [class*='rgs-press'] {
+    animation: none !important;
+  }
+}
